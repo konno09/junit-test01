@@ -1,6 +1,8 @@
 package com.example;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -41,6 +43,17 @@ public class CalcTest {
             .as("除算結果の確認")
             .isEqualTo(3);
     }
+        @Test
+    void divテスト_例外() {
+        Throwable thrown = catchThrowable(() -> {
+            calc.div(4, 0);
+        });
+        assertThat(thrown)
+        .isInstanceOf(ArithmeticException.class)
+        .hasMessageContaining("by zero");
+    }
+
+
 
     @AfterAll
     static void テスト後処理() {
